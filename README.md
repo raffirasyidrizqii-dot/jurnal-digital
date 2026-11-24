@@ -1,3 +1,7 @@
+> [!NOTE]
+> **Pemberitahuan Hak Cipta (All Rights Reserved)**
+> Repositori ini dipublikasikan sementara secara terbatas hanya untuk keperluan evaluasi dan penilaian akademis. Dilarang keras menyalin, mengadaptasi, atau menyebarluaskan kode sumber tanpa izin tertulis dari pemilik hak cipta.
+
 # Jurnal Kelas Digital
 
 Aplikasi pencatatan jurnal kegiatan belajar mengajar (KBM), presensi kelas harian, dan rekapitulasi kehadiran semester berbasis web. Dibangun menggunakan arsitektur monorepo dengan **Laravel 11** sebagai REST API backend dan **Nuxt 3** sebagai frontend interface.
