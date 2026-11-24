@@ -1,0 +1,3640 @@
+{
+  "teachers": {
+    "UH": "Umi Haniah, S.Pd",
+    "MX": "Dra. Mexi Noviyanti",
+    "CH": "Chomisari Handayani, S.Pd",
+    "JV": "Jenny Vera Nursjam, M.Pd",
+    "NA": "Nanda Arsyia Murti, S.Kom",
+    "MU": "Muhammad Usman, S.Si",
+    "SW": "Samuel Wicaksana, M.Pd",
+    "DY": "Dwi Yuniastuti, S.Pd",
+    "DE": "Dwiadi Eliyanto, S.Pd",
+    "NK": "Nurina Kartika Ayu, S.Pd",
+    "FI": "Fanny Indriyani, S.Pd",
+    "KA": "Khairul Arifin, S.Pd",
+    "MD": "Maidya Nengsih, S.Pd",
+    "DH": "Dalilah, S.Pd",
+    "AZ": "Azizah Khoiro Nisah, S.Pd",
+    "FA": "Faradillah Aryani, S.T",
+    "AL": "Anggi Laras Pratiwi, S.Sn",
+    "MZ": "Miftahul Zannah, S.Pd",
+    "NY": "Nurhadi Yahya, S.Ds",
+    "AO": "Anisha Oktaviana, S.Pd",
+    "FK": "Fonny Krisnawulan PM, S.Ds",
+    "RS": "Rahmat Setiawan, S.Ds",
+    "NF": "Nurhayatul Fadilla, S. Pd",
+    "QA": "Qisthina Arsi Febriani, S.Psi",
+    "AR": "Arif Rahmadi, S.Pd.I",
+    "VT": "Veranika TM, S.Kom"
+  },
+  "subjects": {
+    "DPK": "Dasar Program Keahlian",
+    "MKK": "Mata Pelajaran Konsentrasi Keahlian",
+    "KIK": "Kreativitas & Inovasi Kejuruan (PKK)",
+    "MPP": "Mata Pelajaran Pilihan",
+    "MTK": "Matematika",
+    "B.ING": "Bahasa Inggris",
+    "B.INDO": "Bahasa Indonesia",
+    "PP": "Pendidikan Pancasila",
+    "PAI": "Pendidikan Agama Islam",
+    "PJOK": "Pendidikan Jasmani Olahraga & Kesehatan",
+    "SEJ": "Sejarah Indonesia",
+    "IPAS": "Ilmu Pengetahuan Alam & Sosial",
+    "INFKKA": "Informatika",
+    "SB": "Seni Budaya",
+    "ML": "Muatan Lokal"
+  },
+  "schedules": [
+    {
+      "class_name": "X Animasi 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "DPK",
+      "teacher_code": "FK",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Selasa",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "B.INDO",
+      "teacher_code": "DH",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "INFKKA",
+      "teacher_code": "AO",
+      "room": "R.301"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "INFKKA",
+      "teacher_code": "AO",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Selasa",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "DPK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "SB",
+      "teacher_code": "AL",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "PP",
+      "teacher_code": "SW",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Kamis",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "DH",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "10:55",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Jumat",
+      "start_time": "10:55",
+      "end_time": "11:35",
+      "subject_code": "ML",
+      "teacher_code": "AL",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "13:40",
+      "subject_code": "ML",
+      "teacher_code": "AL",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X Animasi 1",
+      "day": "Jumat",
+      "start_time": "13:40",
+      "end_time": "15:00",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.304"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:00",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Senin",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "DPK",
+      "teacher_code": "KA",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Selasa",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "INFKKA",
+      "teacher_code": "AO",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "PP",
+      "teacher_code": "SW",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Selasa",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "B.INDO",
+      "teacher_code": "DE",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "B.INDO",
+      "teacher_code": "DE",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Selasa",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "KA",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "INFKKA",
+      "teacher_code": "AO",
+      "room": "R.205"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Rabu",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "ML",
+      "teacher_code": "AL",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "ML",
+      "teacher_code": "AL",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "SB",
+      "teacher_code": "AL",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Kamis",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "DPK",
+      "teacher_code": "KA",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "KA",
+      "room": "R.202"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "10:00",
+      "subject_code": "DPK",
+      "teacher_code": "KA",
+      "room": "R.205"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "10:55",
+      "subject_code": "DPK",
+      "teacher_code": "KA",
+      "room": "R.204"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Jumat",
+      "start_time": "10:55",
+      "end_time": "11:35",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.204"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "13:40",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.204"
+    },
+    {
+      "class_name": "X DKV 1",
+      "day": "Jumat",
+      "start_time": "13:40",
+      "end_time": "15:00",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.204"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "DPK",
+      "teacher_code": "AL",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "DPK",
+      "teacher_code": "AL",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "AL",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Selasa",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Selasa",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "SB",
+      "teacher_code": "AL",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "SB",
+      "teacher_code": "AL",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Selasa",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "DE",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "07:30",
+      "subject_code": "INFKKA",
+      "teacher_code": "AO",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Rabu",
+      "start_time": "07:30",
+      "end_time": "08:15",
+      "subject_code": "PP",
+      "teacher_code": "SW",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "ML",
+      "teacher_code": "AL",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Rabu",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "07:30",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Kamis",
+      "start_time": "07:30",
+      "end_time": "08:15",
+      "subject_code": "PP",
+      "teacher_code": "SW",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "INFKKA",
+      "teacher_code": "AO",
+      "room": "R.309"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "10:00",
+      "subject_code": "DPK",
+      "teacher_code": "AL",
+      "room": "R.206"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "10:55",
+      "subject_code": "DPK",
+      "teacher_code": "AL",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Jumat",
+      "start_time": "10:55",
+      "end_time": "11:35",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "13:40",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X DKV 2",
+      "day": "Jumat",
+      "start_time": "13:40",
+      "end_time": "15:00",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.203"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:00",
+      "subject_code": "DPK",
+      "teacher_code": "NA",
+      "room": "R.409"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Senin",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "DPK",
+      "teacher_code": "NA",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Selasa",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Selasa",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "14:15",
+      "subject_code": "DPK",
+      "teacher_code": "NA",
+      "room": "R.409"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Selasa",
+      "start_time": "14:15",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "NA",
+      "room": "R.410"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "PP",
+      "teacher_code": "SW",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "B.INDO",
+      "teacher_code": "DH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Rabu",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "NA",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "SB",
+      "teacher_code": "AL",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "INFKKA",
+      "teacher_code": "NA",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "INFKKA",
+      "teacher_code": "NA",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Kamis",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "B.INDO",
+      "teacher_code": "DH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "B.INDO",
+      "teacher_code": "DH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "DPK",
+      "teacher_code": "NA",
+      "room": "R.409"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "13:40",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 1",
+      "day": "Jumat",
+      "start_time": "13:40",
+      "end_time": "15:00",
+      "subject_code": "ML",
+      "teacher_code": "AL",
+      "room": "R.407"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "DPK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "DPK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Senin",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "INFKKA",
+      "teacher_code": "NA",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Selasa",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "DPK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "DPK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "DH",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "B.INDO",
+      "teacher_code": "DH",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Kamis",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "SB",
+      "teacher_code": "AL",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "SB",
+      "teacher_code": "AL",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "ML",
+      "teacher_code": "AL",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "08:50",
+      "subject_code": "PP",
+      "teacher_code": "SW",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Jumat",
+      "start_time": "08:40",
+      "end_time": "09:20",
+      "subject_code": "IPAS",
+      "teacher_code": "CH",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "13:40",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.408"
+    },
+    {
+      "class_name": "X RPL 2",
+      "day": "Jumat",
+      "start_time": "13:40",
+      "end_time": "15:00",
+      "subject_code": "INFKKA",
+      "teacher_code": "NA",
+      "room": "R.408"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MPP",
+      "teacher_code": "KA",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:00",
+      "subject_code": "PP",
+      "teacher_code": "MU",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Rabu",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "MPP",
+      "teacher_code": "KA",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Rabu",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "ML",
+      "teacher_code": "NK",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "ML",
+      "teacher_code": "NK",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Kamis",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "08:50",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Jumat",
+      "start_time": "08:40",
+      "end_time": "09:20",
+      "subject_code": "PP",
+      "teacher_code": "MU",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.305"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:00",
+      "subject_code": "PP",
+      "teacher_code": "MU",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Senin",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "MPP",
+      "teacher_code": "AL",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "MPP",
+      "teacher_code": "AL",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Rabu",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "ML",
+      "teacher_code": "NK",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "14:20",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XI Animasi 2",
+      "day": "Jumat",
+      "start_time": "14:20",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Selasa",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "MPP",
+      "teacher_code": "AZ",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "ML",
+      "teacher_code": "NK",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MPP",
+      "teacher_code": "AZ",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "KIK",
+      "teacher_code": "NY",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.203"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "08:50",
+      "subject_code": "PP",
+      "teacher_code": "MU",
+      "room": "R.202"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Jumat",
+      "start_time": "08:40",
+      "end_time": "10:00",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.202"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.202"
+    },
+    {
+      "class_name": "XI DKV 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "KIK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MPP",
+      "teacher_code": "AZ",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Selasa",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "PP",
+      "teacher_code": "MU",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "ML",
+      "teacher_code": "NK",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.303"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "KIK",
+      "teacher_code": "NY",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "08:50",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.203"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Jumat",
+      "start_time": "08:40",
+      "end_time": "09:20",
+      "subject_code": "MPP",
+      "teacher_code": "AZ",
+      "room": "R.203"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "KIK",
+      "teacher_code": "NY",
+      "room": "R.203"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "KIK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XI DKV 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "JV",
+      "room": "R.303"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "KIK",
+      "teacher_code": "VT",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "PP",
+      "teacher_code": "MU",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "KIK",
+      "teacher_code": "VT",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "14:15",
+      "subject_code": "ML",
+      "teacher_code": "NK",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Selasa",
+      "start_time": "14:15",
+      "end_time": "15:00",
+      "subject_code": "KIK",
+      "teacher_code": "VT",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Kamis",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "10:00",
+      "subject_code": "MPP",
+      "teacher_code": "AO",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "13:40",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 1",
+      "day": "Jumat",
+      "start_time": "13:40",
+      "end_time": "15:00",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:00",
+      "subject_code": "PJOK",
+      "teacher_code": "NK",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Senin",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "SEJ",
+      "teacher_code": "DY",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Selasa",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "ML",
+      "teacher_code": "NK",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Selasa",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MPP",
+      "teacher_code": "MZ",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "JV",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "PP",
+      "teacher_code": "MU",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "MPP",
+      "teacher_code": "MZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "08:10",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Jumat",
+      "start_time": "08:10",
+      "end_time": "08:50",
+      "subject_code": "B.INDO",
+      "teacher_code": "JV",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Jumat",
+      "start_time": "08:40",
+      "end_time": "09:20",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XI RPL 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "AO",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "07:30",
+      "subject_code": "MKK",
+      "teacher_code": "AO",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Selasa",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Selasa",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "MPP",
+      "teacher_code": "RS",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Rabu",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Rabu",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "ML",
+      "teacher_code": "AO",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.308"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "AO",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.302"
+    },
+    {
+      "class_name": "XII Animasi 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "MPP",
+      "teacher_code": "RS",
+      "room": "R.306"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "AO",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "MKK",
+      "teacher_code": "AO",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Senin",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "07:30",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Selasa",
+      "start_time": "07:30",
+      "end_time": "08:15",
+      "subject_code": "MKK",
+      "teacher_code": "AO",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Selasa",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "14:15",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Selasa",
+      "start_time": "14:15",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "AO",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Rabu",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "ML",
+      "teacher_code": "AO",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "MPP",
+      "teacher_code": "RS",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "14:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Rabu",
+      "start_time": "14:15",
+      "end_time": "15:00",
+      "subject_code": "INFKKA",
+      "teacher_code": "AO",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "MPP",
+      "teacher_code": "RS",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Kamis",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Kamis",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "FK",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "B.ING",
+      "teacher_code": "DE",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.307"
+    },
+    {
+      "class_name": "XII Animasi 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.301"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Selasa",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Selasa",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "MPP",
+      "teacher_code": "NA",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "subject_code": "MPP",
+      "teacher_code": "NA",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Rabu",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Rabu",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "AL",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "KIK",
+      "teacher_code": "KA",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.206"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "13:40",
+      "subject_code": "KIK",
+      "teacher_code": "KA",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 1",
+      "day": "Jumat",
+      "start_time": "13:40",
+      "end_time": "15:00",
+      "subject_code": "ML",
+      "teacher_code": "KA",
+      "room": "R.309"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:00",
+      "subject_code": "KIK",
+      "teacher_code": "KA",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Senin",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "ML",
+      "teacher_code": "KA",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Selasa",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "AL",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "KIK",
+      "teacher_code": "KA",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "PAI",
+      "teacher_code": "AR",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "MZ",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "B.ING",
+      "teacher_code": "DH",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:00",
+      "subject_code": "MPP",
+      "teacher_code": "MZ",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Kamis",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "MPP",
+      "teacher_code": "MZ",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.204"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "MKK",
+      "teacher_code": "RS",
+      "room": "R.205"
+    },
+    {
+      "class_name": "XII DKV 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.202"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:45",
+      "subject_code": "KIK",
+      "teacher_code": "VT",
+      "room": "R.408"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.408"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.408"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Senin",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "ML",
+      "teacher_code": "NA",
+      "room": "R.406"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "07:30",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Selasa",
+      "start_time": "07:30",
+      "end_time": "09:00",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Selasa",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.408"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Selasa",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.408"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.408"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "09:00",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Rabu",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "NY",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "14:15",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Rabu",
+      "start_time": "14:15",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "08:15",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Kamis",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Kamis",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "NA",
+      "room": "R.405"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "09:20",
+      "subject_code": "MTK",
+      "teacher_code": "MD",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Jumat",
+      "start_time": "09:20",
+      "end_time": "10:00",
+      "subject_code": "KIK",
+      "teacher_code": "VT",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "10:55",
+      "subject_code": "KIK",
+      "teacher_code": "VT",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Jumat",
+      "start_time": "10:55",
+      "end_time": "11:35",
+      "subject_code": "MPP",
+      "teacher_code": "AO",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 1",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "MPP",
+      "teacher_code": "AO",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Senin",
+      "start_time": "07:30",
+      "end_time": "09:00",
+      "subject_code": "PP",
+      "teacher_code": "DY",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Senin",
+      "start_time": "09:00",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "NA",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Senin",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "MKK",
+      "teacher_code": "NA",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Senin",
+      "start_time": "10:45",
+      "end_time": "12:15",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Senin",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "KIK",
+      "teacher_code": "FA",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Selasa",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "B.ING",
+      "teacher_code": "JV",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Selasa",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "PAI",
+      "teacher_code": "MU",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Selasa",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MTK",
+      "teacher_code": "MX",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Rabu",
+      "start_time": "06:45",
+      "end_time": "07:30",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Rabu",
+      "start_time": "07:30",
+      "end_time": "08:15",
+      "subject_code": "MPP",
+      "teacher_code": "MZ",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Rabu",
+      "start_time": "08:15",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Rabu",
+      "start_time": "10:00",
+      "end_time": "12:15",
+      "subject_code": "B.INDO",
+      "teacher_code": "UH",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Rabu",
+      "start_time": "12:45",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Kamis",
+      "start_time": "06:45",
+      "end_time": "09:45",
+      "subject_code": "MKK",
+      "teacher_code": "AZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Kamis",
+      "start_time": "10:00",
+      "end_time": "10:45",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Kamis",
+      "start_time": "10:45",
+      "end_time": "11:30",
+      "subject_code": "MPP",
+      "teacher_code": "MZ",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Kamis",
+      "start_time": "11:30",
+      "end_time": "12:15",
+      "subject_code": "ML",
+      "teacher_code": "NA",
+      "room": "R.409"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Kamis",
+      "start_time": "12:45",
+      "end_time": "13:30",
+      "subject_code": "ML",
+      "teacher_code": "NA",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Kamis",
+      "start_time": "13:30",
+      "end_time": "15:00",
+      "subject_code": "MPP",
+      "teacher_code": "MZ",
+      "room": "R.404"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Jumat",
+      "start_time": "07:30",
+      "end_time": "10:00",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Jumat",
+      "start_time": "10:15",
+      "end_time": "11:35",
+      "subject_code": "MKK",
+      "teacher_code": "NF",
+      "room": "R.402"
+    },
+    {
+      "class_name": "XII RPL 2",
+      "day": "Jumat",
+      "start_time": "13:00",
+      "end_time": "15:00",
+      "subject_code": "MKK",
+      "teacher_code": "VT",
+      "room": "R.402"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+# Dependencies
+**/node_modules/
+**/vendor/
+
+# Build outputs
+**/.output/
+**/.nuxt/
+**/.nitro/
+**/dist/
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.*.local
+!**/.env.example
+
+# Logs and caches
+**/storage/logs/
+**/storage/framework/cache/
+**/storage/framework/sessions/
+**/storage/framework/views/
+**/.phpunit.result.cache
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

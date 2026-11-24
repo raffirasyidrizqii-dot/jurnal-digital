@@ -1,0 +1,1367 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\SchoolClass;
+use App\Models\AttendanceSession;
+use App\Models\AttendanceRecord;
+use App\Models\ClassJournal;
+use App\Models\MaterialJournal;
+use App\Models\LeaveRequest;
+use App\Models\Schedule;
+use App\Models\AuditLog;
+use App\Models\Setting;
+use Carbon\Carbon;
+
+class DashboardController extends Controller
+{
+    public function index(Request $request)
+    {
+        $user = $request->user();
+        $today = $request->input('date') ?: Carbon::today('Asia/Jakarta')->toDateString();
+
+        switch ($user->role) {
+            case 'SUPERADMIN':
+                return $this->superadminDashboard($user, $today);
+            case 'SISWA':
+                return $this->siswaDashboard($user, $today);
+            case 'SEKRETARIS':
+                return $this->sekretarisDashboard($user, $today);
+            case 'GURU_PENGAJAR':
+                return $this->pengajarDashboard($user, $today);
+            case 'GURU_PEMBIMBING':
+                return $this->pembimbingDashboard($user, $today);
+            case 'ORANG_TUA':
+                return $this->orangTuaDashboard($user, $today, $request);
+            default:
+                return response()->json(['message' => 'Role tidak valid'], 400);
+        }
+    }
+
+    private function siswaDashboard(User $user, $today = null)
+    {
+        $today = $today ?: Carbon::today()->toDateString();
+
+        // Calculate personal attendance counts
+        $records = AttendanceRecord::where('student_id', $user->id)->get();
+        $totalRecords = $records->count() ?: 1;
+        $hadirCount = $records->where('status', 'HADIR')->count();
+        $sakitCount = $records->where('status', 'SAKIT')->count();
+        $izinCount = $records->where('status', 'IZIN')->count();
+        $alphaCount = $records->where('status', 'ALPHA')->count();
+
+        $percentage = round(($hadirCount / $totalRecords) * 100);
+
+        // Today's self-attendance status
+        $classId = $user->class_id;
+        $todaySession = $classId
+            ? AttendanceSession::where('class_id', $classId)->whereDate('date', $today)->first()
+            : null;
+        $todayRecord = $todaySession
+            ? AttendanceRecord::where('session_id', $todaySession->id)->where('student_id', $user->id)->first()
+            : null;
+
+        // Cek pengajuan surat izin terbaru siswa untuk hari ini
+        $latestLeave = LeaveRequest::where('student_id', $user->id)
+            ->whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->latest('id')
+            ->first();
+
+        $todayRecordObj = null;
+        $pendingLeave = null;
+        $rejectedLeave = null;
+
+        if ($latestLeave && $latestLeave->status === 'APPROVED') {
+            // SINKRONISASI KE ATTENDANCE_RECORD JIKA STATUS BELUM SESUAI
+            if ($todayRecord && $todayRecord->status !== $latestLeave->type) {
+                $todayRecord->update([
+                    'status' => $latestLeave->type,
+                    'note' => 'Surat Izin ' . $latestLeave->type . ' disetujui Wali Kelas: ' . $latestLeave->reason,
+                ]);
+            } elseif (!$todayRecord && $todaySession) {
+                $todayRecord = AttendanceRecord::create([
+                    'session_id' => $todaySession->id,
+                    'student_id' => $user->id,
+                    'status' => $latestLeave->type,
+                    'note' => 'Surat Izin ' . $latestLeave->type . ' disetujui Wali Kelas: ' . $latestLeave->reason,
+                ]);
+            }
+            $todayRecordObj = (object) [
+                'status' => $latestLeave->type,
+                'note' => 'Surat Izin ' . $latestLeave->type . ' disetujui Wali Kelas: ' . $latestLeave->reason,
+                'is_leave_approved' => true,
+                'is_leave_rejected' => false,
+            ];
+        } elseif ($latestLeave && $latestLeave->status === 'REJECTED') {
+            // Surat izin ditolak Wali Kelas! Siswa TIDAK diizinkan absen
+            $rejectedLeave = $latestLeave;
+            // Jika izin ditolak, siswa dilarang klaim mandiri dari HP.
+            // Hanya dihitung HADIR jika ada verifikasi langsung di kelas oleh Sekretaris / Wali Kelas
+            if ($todayRecord) {
+                if ($todayRecord->status === 'HADIR' && !str_contains($todayRecord->note ?? '', 'Presensi Mandiri Pukul')) {
+                    $todayRecordObj = (object) [
+                        'status' => 'HADIR',
+                        'note' => $todayRecord->note ?: 'Diverifikasi Hadir di Kelas oleh Sekretaris Kelas',
+                        'is_leave_approved' => false,
+                        'is_leave_rejected' => false,
+                    ];
+                } else {
+                    // Hapus klaim mandiri karena izinnya ditolak dan belum diverifikasi fisik oleh Sekretaris
+                    $todayRecord->delete();
+                    $todayRecord = null;
+                }
+            }
+        } elseif ($latestLeave && $latestLeave->status === 'PENDING') {
+            $pendingLeave = $latestLeave;
+        } elseif ($todayRecord) {
+            $todayRecordObj = (object) [
+                'status' => $todayRecord->status,
+                'note' => $todayRecord->note ?: 'Hadir Terverifikasi',
+                'is_leave_approved' => in_array($todayRecord->status, ['SAKIT', 'IZIN']),
+                'is_leave_rejected' => false,
+            ];
+        }
+
+        // Recent personal attendance
+        $recentAttendance = AttendanceRecord::with(['session.schoolClass'])
+            ->where('student_id', $user->id)
+            ->latest()
+            ->take(5)
+            ->get()
+            ->map(function ($rec) {
+                return [
+                    'id' => $rec->id,
+                    'date' => Carbon::parse($rec->session->date)->translatedFormat('l, d M Y'),
+                    'status' => $rec->status,
+                    'note' => $rec->note ?: 'Hadir Terverifikasi',
+                    'school_hours' => $rec->session->school_hours,
+                ];
+            });
+
+        // Recent material journals (difilter per kelas siswa)
+        $recentMaterials = MaterialJournal::with(['subject', 'teacher'])
+            ->where(function($q) use ($classId) {
+                $q->where('class_id', $classId)->orWhereNull('class_id');
+            })
+            ->latest('date')
+            ->take(5)
+            ->get()
+            ->map(function ($mat) {
+                return [
+                    'id' => $mat->id,
+                    'date' => Carbon::parse($mat->date)->translatedFormat('d M Y'),
+                    'subject' => $mat->subject->name ?? 'Mata Pelajaran',
+                    'topic' => $mat->topic,
+                    'teacher' => $mat->teacher->name ?? 'Guru',
+                ];
+            });
+
+        // Recent student activity journals (hanya catatan pribadi milik siswa bersangkutan)
+        $recentJournals = ClassJournal::with(['schedule.subject', 'createdBy'])
+            ->where('created_by_id', $user->id)
+            ->latest('date')
+            ->latest('id')
+            ->take(5)
+            ->get()
+            ->map(function ($j) {
+                return [
+                    'id' => $j->id,
+                    'date' => Carbon::parse($j->date)->translatedFormat('d M Y'),
+                    'subject' => $j->schedule->subject->name ?? 'Kegiatan Kelas',
+                    'activity' => $j->activity,
+                    'notes' => $j->notes,
+                    'author' => $j->createdBy->name ?? 'Siswa',
+                    'status' => $j->verification_status,
+                ];
+            });
+
+        $targetDateCarbon = Carbon::parse($today, 'Asia/Jakarta')->startOfDay();
+        $todayCarbon = Carbon::today('Asia/Jakarta')->startOfDay();
+        $isPast = $targetDateCarbon->lt($todayCarbon);
+        $isFuture = $targetDateCarbon->gt($todayCarbon);
+        $isToday = $targetDateCarbon->eq($todayCarbon);
+
+        $daysMap = [
+            1 => 'Senin',
+            2 => 'Selasa',
+            3 => 'Rabu',
+            4 => 'Kamis',
+            5 => 'Jumat',
+            6 => 'Sabtu',
+            7 => 'Minggu',
+        ];
+        $dayOfWeekNumber = $targetDateCarbon->dayOfWeekIso;
+        $dayName = $daysMap[$dayOfWeekNumber] ?? 'Senin';
+        $isWeekend = ($dayOfWeekNumber >= 6);
+
+        $nowJakarta = Carbon::now('Asia/Jakarta');
+        $schoolHours = Setting::get('default_school_hours', '06:45 - 15:00');
+        $hoursParts = explode('-', $schoolHours);
+        $startTime = trim($hoursParts[0] ?? '06:45');
+        $toleranceMinutes = (int) Setting::get('attendance_late_tolerance_minutes', '30');
+        try {
+            $startCarbon = Carbon::createFromTimeString($startTime, 'Asia/Jakarta');
+            $cutoffCarbon = $startCarbon->copy()->addMinutes($toleranceMinutes);
+            $isPastCutoffToday = $isToday && $nowJakarta->greaterThan($cutoffCarbon);
+        } catch (\Exception $e) {
+            $isPastCutoffToday = false;
+        }
+
+        $todayTimeline = $this->getTodayTimeline($classId, $today, $user->id);
+        $todayKbmLeaves = [];
+        $todayKbmAlfa = [];
+        foreach ($todayTimeline as $tItem) {
+            if (($tItem['student_status'] ?? '') === 'IZIN') {
+                $todayKbmLeaves[] = [
+                    'jam_ke' => $tItem['jam_ke'],
+                    'time' => $tItem['time'],
+                    'subject' => $tItem['subject'],
+                    'teacher' => $tItem['teacher_name'],
+                    'leave_time' => $tItem['student_leave_time'] ?: 'Saat KBM',
+                    'reason' => $tItem['student_leave_note'] ?: 'Izin keluar kelas saat KBM',
+                ];
+            } elseif (($tItem['student_status'] ?? '') === 'ALPHA') {
+                $todayKbmAlfa[] = [
+                    'jam_ke' => $tItem['jam_ke'],
+                    'time' => $tItem['time'],
+                    'subject' => $tItem['subject'],
+                    'teacher' => $tItem['teacher_name'],
+                    'note' => 'Tercatat Alfa (Tidak Hadir) oleh guru pengajar',
+                ];
+            }
+        }
+
+        return response()->json([
+            'server_today' => Carbon::today('Asia/Jakarta')->toDateString(),
+            'server_time' => Carbon::now('Asia/Jakarta')->toDateTimeString(),
+            'stats' => [
+                'hadir_hari' => $hadirCount . ' Hari',
+                'hadir_percent' => $percentage . '% Kehadiran',
+                'sakit_hari' => $sakitCount . ' Hari',
+                'izin_hari' => $izinCount . ' Hari',
+                'alpha_hari' => $alphaCount . ' Hari',
+            ],
+            'selected_date' => $today,
+            'selected_date_formatted' => $targetDateCarbon->translatedFormat('l, d F Y'),
+            'selected_day_name' => $dayName,
+            'is_weekend' => $isWeekend,
+            'is_today' => $isToday,
+            'is_past' => $isPast,
+            'is_future' => $isFuture,
+            'today_attendance' => $todayRecordObj ? [
+                'checked_in' => true,
+                'is_leave_approved' => !empty($todayRecordObj->is_leave_approved),
+                'is_leave_rejected' => false,
+                'has_pending_leave' => false,
+                'status' => $todayRecordObj->status,
+                'note' => $todayRecordObj->note ?: 'Hadir Terverifikasi',
+                'date_formatted' => Carbon::parse($today)->translatedFormat('l, d F Y'),
+            ] : ($rejectedLeave ? [
+                'checked_in' => false,
+                'is_leave_approved' => false,
+                'is_leave_rejected' => true,
+                'can_self_check_in' => false,
+                'has_pending_leave' => false,
+                'status' => 'DITOLAK',
+                'rejection_reason' => $rejectedLeave->review_note ?: 'Tidak memenuhi syarat izin sekolah.',
+                'note' => 'Permohonan surat izin Anda telah DITOLAK oleh Wali Kelas ("' . ($rejectedLeave->review_note ?: 'Tidak memenuhi syarat izin.') . '"). Silakan hadir ke sekolah dan melapor ke Guru / Wali Kelas untuk verifikasi kehadiran fisik Anda.',
+                'date_formatted' => Carbon::parse($today)->translatedFormat('l, d F Y'),
+            ] : ($pendingLeave ? [
+                'checked_in' => false,
+                'is_leave_approved' => false,
+                'is_leave_rejected' => false,
+                'has_pending_leave' => true,
+                'status' => 'PENDING',
+                'note' => 'Permohonan surat izin (' . $pendingLeave->type . ') Anda telah diajukan dan sedang menunggu verifikasi Wali Kelas.',
+                'date_formatted' => Carbon::parse($today)->translatedFormat('l, d F Y'),
+            ] : [
+                'checked_in' => false,
+                'is_leave_approved' => false,
+                'is_leave_rejected' => false,
+                'has_pending_leave' => false,
+                'is_auto_alfa' => ($isPastCutoffToday || $isPast),
+                'status' => ($isPastCutoffToday || $isPast) ? 'ALPHA' : 'BELUM_PRESENSI',
+                'note' => ($isPastCutoffToday || $isPast)
+                    ? 'Batas waktu toleransi presensi pagi telah berakhir. Status Anda tercatat ALFA (hubungi Wali Kelas/Sekretaris jika terlambat).'
+                    : 'Status kehadiran dicatat oleh guru pada saat jam pelajaran berlangsung.',
+                'date_formatted' => Carbon::parse($today)->translatedFormat('l, d F Y'),
+            ])),
+            'recent_attendance' => $recentAttendance,
+            'recent_materials' => $recentMaterials,
+            'recent_journals' => $recentJournals,
+            'today_timeline' => $todayTimeline,
+            'today_kbm_leaves' => $todayKbmLeaves,
+            'today_kbm_alfa' => $todayKbmAlfa,
+            'today_kbm_summary' => [
+                'has_leaves' => !empty($todayKbmLeaves),
+                'has_alfa' => !empty($todayKbmAlfa),
+                'leaves_count' => count($todayKbmLeaves),
+                'alfa_count' => count($todayKbmAlfa),
+            ],
+        ]);
+    }
+
+    /**
+     * Dashboard Pantauan Orang Tua / Wali Murid (Memantau Kehadiran, Surat Izin, & Jurnal Kegiatan Anak di Sekolah).
+     */
+    private function orangTuaDashboard(User $user, $today, $request = null)
+    {
+        $requestedStudentId = $request ? $request->input('student_id') : request()->input('student_id');
+
+        // Cari semua anak yang berelasi dengan orang tua ini
+        $allChildren = User::with('schoolClass.advisor')
+            ->whereIn('role', ['SISWA', 'SEKRETARIS'])
+            ->where(function ($q) use ($user) {
+                if ($user->student_id) $q->orWhere('id', $user->student_id);
+                if ($user->nip_nis) $q->orWhere('nip_nis', $user->nip_nis);
+                if ($user->phone) $q->orWhere('phone', $user->phone);
+            })
+            ->get();
+
+        $child = null;
+        if ($requestedStudentId) {
+            $child = $allChildren->firstWhere('id', $requestedStudentId) ?? User::with('schoolClass.advisor')->find($requestedStudentId);
+        }
+        if (!$child && $allChildren->isNotEmpty()) {
+            $child = $allChildren->first();
+        }
+        if (!$child && $user->student_id) {
+            $child = User::with('schoolClass.advisor')->find($user->student_id);
+        }
+
+        if (!$child && $user->nip_nis) {
+            $child = User::with('schoolClass.advisor')
+                ->where('nip_nis', $user->nip_nis)
+                ->whereIn('role', ['SISWA', 'SEKRETARIS'])
+                ->first();
+        }
+
+        // Tanpa fallback sembarangan ke siswa lain jika belum terhubung
+        $classId = $child?->class_id ?? $user->class_id;
+        $schoolClass = $classId ? SchoolClass::with('advisor')->find($classId) : null;
+
+        $records = $child ? AttendanceRecord::where('student_id', $child->id)->get() : collect();
+        $totalRecords = $records->count() ?: 1;
+        $hadirCount = $records->where('status', 'HADIR')->count();
+        $sakitCount = $records->where('status', 'SAKIT')->count();
+        $izinCount = $records->where('status', 'IZIN')->count();
+        $alphaCount = $records->where('status', 'ALPHA')->count();
+        $percentage = round(($hadirCount / $totalRecords) * 100);
+
+        $todaySession = AttendanceSession::where('class_id', $classId)->whereDate('date', $today)->first();
+        $todayRecord = ($todaySession && $child)
+            ? AttendanceRecord::where('session_id', $todaySession->id)->where('student_id', $child->id)->first()
+            : null;
+
+        // Cek permohonan surat izin anak hari ini
+        $latestLeave = $child ? LeaveRequest::where('student_id', $child->id)
+            ->whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->latest('id')
+            ->first() : null;
+
+        $todayStatus = 'BELUM_PRESENSI';
+        $todayNote = 'Belum melakukan presensi hari ini';
+        $isLeaveRejected = false;
+        $isLeaveApproved = false;
+        $hasPendingLeave = false;
+        $rejectionReason = null;
+
+        if ($latestLeave && $latestLeave->status === 'APPROVED') {
+            $todayStatus = $latestLeave->type;
+            $todayNote = $latestLeave->type === 'SAKIT' ? 'Sakit' : 'Izin';
+            $isLeaveApproved = true;
+        } elseif ($latestLeave && $latestLeave->status === 'REJECTED') {
+            $isLeaveRejected = true;
+            $rejectionReason = $latestLeave->review_note ?: 'Tidak memenuhi syarat izin sekolah.';
+            if ($todayRecord && $todayRecord->status === 'HADIR' && !str_contains($todayRecord->note ?? '', 'Presensi Mandiri Pukul')) {
+                $todayStatus = 'HADIR';
+                $todayNote = 'Hadir';
+            } else {
+                $todayStatus = 'DITOLAK';
+                $todayNote = 'Izin Ditolak';
+            }
+        } elseif ($latestLeave && $latestLeave->status === 'PENDING') {
+            $hasPendingLeave = true;
+            $todayStatus = 'PENDING';
+            $todayNote = 'Menunggu Konfirmasi';
+        } elseif ($todayRecord) {
+            $todayStatus = $todayRecord->status;
+            $isLate = str_contains($todayRecord->note ?? '', 'TERLAMBAT');
+            $todayNote = $isLate ? $todayRecord->note : ($todayRecord->status === 'HADIR' ? 'Hadir' : ($todayRecord->status === 'SAKIT' ? 'Sakit' : ($todayRecord->status === 'IZIN' ? 'Izin' : 'Alpa')));
+            $isLeaveApproved = in_array($todayRecord->status, ['SAKIT', 'IZIN']);
+        }
+
+        $recentAttendance = $child
+            ? AttendanceRecord::with(['session.schoolClass'])
+                ->where('student_id', $child->id)
+                ->latest()
+                ->take(6)
+                ->get()
+                ->map(function ($rec) {
+                    $st = $rec->status;
+                    $isLate = str_contains($rec->note ?? '', 'TERLAMBAT');
+                    $simpleNote = $isLate ? $rec->note : ($st === 'HADIR' ? 'Hadir' : ($st === 'SAKIT' ? 'Sakit' : ($st === 'IZIN' ? 'Izin' : 'Alpa')));
+                    return [
+                        'id' => $rec->id,
+                        'date' => Carbon::parse($rec->session->date)->translatedFormat('l, d M Y'),
+                        'status' => $st,
+                        'note' => $simpleNote,
+                        'school_hours' => $rec->session->school_hours ?? Setting::get('default_school_hours', '06:45 - 15:00'),
+                    ];
+                })
+            : [];
+
+        $recentJournals = $child
+            ? ClassJournal::with(['schedule.subject', 'createdBy', 'confirmedBy'])
+                ->where('created_by_id', $child->id)
+                ->latest('date')
+                ->latest('id')
+                ->take(6)
+                ->get()
+                ->map(function ($j) {
+                    return [
+                        'id' => $j->id,
+                        'date' => Carbon::parse($j->date)->translatedFormat('d M Y'),
+                        'subject' => $j->schedule->subject->name ?? 'Kegiatan Pembelajaran',
+                        'teacher' => $j->confirmedBy->name ?? ($j->schedule->teacher->name ?? 'Guru'),
+                        'activity' => $j->activity,
+                        'notes' => $j->notes,
+                        'student_author' => $j->createdBy->name ?? 'Siswa',
+                        'status' => $j->verification_status,
+                    ];
+                })
+            : [];
+
+        $recentLeaves = $child
+            ? LeaveRequest::with('reviewer')
+                ->where('student_id', $child->id)
+                ->latest()
+                ->take(5)
+                ->get()
+                ->map(function ($lv) {
+                    return [
+                        'id' => $lv->id,
+                        'type' => $lv->type,
+                        'dates' => Carbon::parse($lv->start_date)->translatedFormat('d M Y') . ' s/d ' . Carbon::parse($lv->end_date)->translatedFormat('d M Y'),
+                        'reason' => $lv->reason,
+                        'status' => $lv->status,
+                        'reviewer' => $lv->reviewer->name ?? 'Wali Kelas',
+                    ];
+                })
+            : [];
+
+        $todayTimeline = $this->getTodayTimeline($classId, $today, $child?->id);
+        $todayKbmLeaves = [];
+        $todayKbmAlfa = [];
+        foreach ($todayTimeline as $tItem) {
+            if (($tItem['student_status'] ?? '') === 'IZIN') {
+                $todayKbmLeaves[] = [
+                    'jam_ke' => $tItem['jam_ke'],
+                    'time' => $tItem['time'],
+                    'subject' => $tItem['subject'],
+                    'teacher' => $tItem['teacher_name'],
+                    'leave_time' => $tItem['student_leave_time'] ?: 'Saat KBM',
+                    'reason' => $tItem['student_leave_note'] ?: 'Izin keluar kelas saat KBM',
+                ];
+            } elseif (($tItem['student_status'] ?? '') === 'ALPHA') {
+                $todayKbmAlfa[] = [
+                    'jam_ke' => $tItem['jam_ke'],
+                    'time' => $tItem['time'],
+                    'subject' => $tItem['subject'],
+                    'teacher' => $tItem['teacher_name'],
+                    'note' => 'Tercatat Alfa (Tidak Hadir) oleh guru pengajar',
+                ];
+            }
+        }
+
+        return response()->json([
+            'server_today' => Carbon::today('Asia/Jakarta')->toDateString(),
+            'server_time' => Carbon::now('Asia/Jakarta')->toDateTimeString(),
+            'child' => [
+                'id' => $child?->id,
+                'name' => $child?->name ?? 'Siswa',
+                'nis' => $child?->nip_nis ?? '-',
+                'class_name' => $schoolClass?->name ?? '-',
+                'wali_kelas' => $schoolClass?->advisor?->name ?? 'Wali Kelas',
+                'today_status' => $todayStatus,
+                'today_note' => $todayNote,
+                'is_leave_rejected' => $isLeaveRejected,
+                'is_leave_approved' => $isLeaveApproved,
+                'has_pending_leave' => $hasPendingLeave,
+                'rejection_reason' => $rejectionReason,
+                'date_formatted' => Carbon::parse($today)->translatedFormat('l, d F Y'),
+            ],
+            'stats' => [
+                'hadir_hari' => $hadirCount . ' Hari',
+                'hadir_percent' => $percentage . '% Kehadiran',
+                'sakit_hari' => $sakitCount . ' Hari',
+                'izin_hari' => $izinCount . ' Hari',
+                'alpha_hari' => $alphaCount . ' Hari',
+            ],
+            'children' => $allChildren->map(function ($c) {
+                return [
+                    'id' => $c->id,
+                    'name' => $c->name,
+                    'nis' => $c->nip_nis ?? '-',
+                    'class_name' => $c->schoolClass?->name ?? 'Kelas',
+                ];
+            }),
+            'recent_attendance' => $recentAttendance,
+            'recent_journals' => $recentJournals,
+            'selected_date' => $today,
+            'selected_date_formatted' => Carbon::parse($today, 'Asia/Jakarta')->translatedFormat('l, d F Y'),
+            'is_weekend' => Carbon::parse($today, 'Asia/Jakarta')->dayOfWeekIso >= 6,
+            'is_today' => Carbon::parse($today, 'Asia/Jakarta')->isToday(),
+            'is_past' => Carbon::parse($today, 'Asia/Jakarta')->isPast() && !Carbon::parse($today, 'Asia/Jakarta')->isToday(),
+            'is_future' => Carbon::parse($today, 'Asia/Jakarta')->isFuture(),
+            'recent_leaves' => $recentLeaves,
+            'today_timeline' => $todayTimeline,
+            'today_kbm_leaves' => $todayKbmLeaves,
+            'today_kbm_alfa' => $todayKbmAlfa,
+            'today_kbm_summary' => [
+                'has_leaves' => !empty($todayKbmLeaves),
+                'has_alfa' => !empty($todayKbmAlfa),
+                'leaves_count' => count($todayKbmLeaves),
+                'alfa_count' => count($todayKbmAlfa),
+            ],
+        ]);
+    }
+
+    private function getTodayTimeline($classId, $today, $studentId = null)
+    {
+        $daysMap = [
+            1 => 'Senin',
+            2 => 'Selasa',
+            3 => 'Rabu',
+            4 => 'Kamis',
+            5 => 'Jumat',
+            6 => 'Sabtu',
+            7 => 'Minggu',
+        ];
+        $targetDateCarbon = Carbon::parse($today, 'Asia/Jakarta')->startOfDay();
+        $todayCarbon = Carbon::today('Asia/Jakarta')->startOfDay();
+        $isPast = $targetDateCarbon->lt($todayCarbon);
+        $isFuture = $targetDateCarbon->gt($todayCarbon);
+        $isToday = $targetDateCarbon->eq($todayCarbon);
+
+        $dayOfWeekNumber = $targetDateCarbon->dayOfWeekIso;
+        if ($dayOfWeekNumber >= 6) {
+            // Weekend: Sabtu / Minggu tidak ada kegiatan KBM
+            return collect();
+        }
+
+        $currentDayName = $daysMap[$dayOfWeekNumber] ?? 'Senin';
+
+        // Ambil jadwal hari ini untuk kelas ini
+        $schedules = Schedule::where('class_id', $classId)
+            ->where('day', $currentDayName)
+            ->with(['subject', 'teacher'])
+            ->orderBy('start_time')
+            ->get();
+
+        if ($schedules->isEmpty()) {
+            return collect();
+        }
+
+        $todayJournals = ClassJournal::where('class_id', $classId)
+            ->whereDate('date', $today)
+            ->get()
+            ->keyBy('schedule_id');
+
+        $todayMaterialsBySchedule = MaterialJournal::where('class_id', $classId)
+            ->whereNotNull('schedule_id')
+            ->latest('id')
+            ->get()
+            ->keyBy('schedule_id');
+
+        $todayMaterialsBySubject = MaterialJournal::where('class_id', $classId)
+            ->latest('id')
+            ->get()
+            ->keyBy('subject_id');
+
+        $nowStr = Carbon::now('Asia/Jakarta')->format('H:i');
+
+        // Ambil surat izin yang disetujui Walas untuk siswa pada hari ini
+        $studentApprovedLeaves = $studentId ? LeaveRequest::where('student_id', $studentId)
+            ->where('status', 'APPROVED')
+            ->whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->get() : collect();
+
+        return $schedules->values()->map(function ($sch, $index) use ($todayJournals, $todayMaterialsBySchedule, $todayMaterialsBySubject, $studentId, $studentApprovedLeaves, $isPast, $isFuture, $nowStr) {
+            $journal = $todayJournals->get($sch->id);
+            $absentStudents = [];
+            $studentAttendance = [];
+            $studentStatus = null;
+            $studentLeaveTime = null;
+            $studentLeaveNote = null;
+            $startStr = substr($sch->start_time ?? '07:30', 0, 5);
+            $endStr = substr($sch->end_time ?? '09:00', 0, 5);
+            $isDone = $journal && $journal->verification_status === 'TERVERIFIKASI';
+            $isPending = $journal && $journal->verification_status !== 'TERVERIFIKASI';
+
+            $notes = $journal?->notes;
+            if ($notes && str_starts_with(trim($notes), '{')) {
+                $dec = json_decode($notes, true);
+                if (is_array($dec)) {
+                    $absentStudents = $dec['absent_students'] ?? [];
+                    $studentAttendance = $dec['student_attendance'] ?? [];
+                    $notes = $dec['notes'] ?? '';
+                    if ($studentId && !empty($studentAttendance)) {
+                        foreach ($studentAttendance as $sa) {
+                            $saId = $sa['id'] ?? ($sa['student_id'] ?? null);
+                            if ($saId == $studentId) {
+                                $studentStatus = strtoupper($sa['status'] ?? 'HADIR');
+                                $studentLeaveTime = $sa['leave_time'] ?? null;
+                                $studentLeaveNote = $sa['note'] ?? ($sa['reason'] ?? null);
+                                break;
+                            }
+                        }
+                    }
+                    if ($studentId && !$studentStatus && $journal) {
+                        $stUser = \App\Models\User::find($studentId);
+                        if ($stUser && in_array($stUser->name, $absentStudents)) {
+                            $studentStatus = 'ALPHA';
+                        } elseif ($isDone) {
+                            $studentStatus = 'HADIR';
+                        }
+                    }
+                }
+            }
+
+            // Jika belum ada presensi di jurnal mapel, cek apakah siswa memegang Surat Izin resmi Walas
+            if ($studentId && !$studentStatus && $studentApprovedLeaves->isNotEmpty()) {
+                foreach ($studentApprovedLeaves as $lv) {
+                    $isHourly = str_contains($lv->reason ?? '', '[Dispensasi Jam KBM') || str_contains($lv->reason ?? '', '[Dispensasi Jam Tertentu]');
+                    if (!$isHourly) {
+                        $studentStatus = ($lv->type === 'SAKIT') ? 'SAKIT' : 'IZIN';
+                        $studentLeaveNote = $lv->reason;
+                        break;
+                    } else {
+                        $subName = strtolower($sch->subject->name ?? '');
+                        $reasonLower = strtolower($lv->reason ?? '');
+                        $matchSub = $subName && str_contains($reasonLower, $subName);
+                        $matchTime = false;
+                        if (preg_match('/(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/', $lv->reason ?? '', $m)) {
+                            $leaveStart = $m[1];
+                            $leaveEnd = $m[2];
+                            if ($startStr < $leaveEnd && $endStr > $leaveStart) {
+                                $matchTime = true;
+                            }
+                        }
+                        if ($matchSub || $matchTime) {
+                            $studentStatus = 'IZIN';
+                            $studentLeaveNote = $lv->reason;
+                            $studentLeaveTime = $sch->start_time ?? $startStr;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if ($studentId && !$studentStatus) {
+                if ($isFuture) {
+                    $studentStatus = 'BELUM_KBM';
+                } elseif ($isDone) {
+                    $studentStatus = 'HADIR';
+                } elseif ($nowStr > $endStr) {
+                    $studentStatus = 'JAM_KOSONG';
+                } else {
+                    $studentStatus = 'BELUM_KBM';
+                }
+            }
+
+            $mat = $todayMaterialsBySchedule->get($sch->id) ?? $todayMaterialsBySubject->get($sch->subject_id);
+            $attachmentUrl = null;
+            $attachmentName = null;
+            if ($mat && $mat->attachment_path) {
+                $attachmentUrl = url('api/materials/file/' . basename($mat->attachment_path));
+                $attachmentName = basename($mat->attachment_path);
+            }
+
+            $isDone = $journal && $journal->verification_status === 'TERVERIFIKASI';
+            $isPending = $journal && $journal->verification_status !== 'TERVERIFIKASI';
+
+            $startStr = substr($sch->start_time ?? '07:30', 0, 5);
+            $endStr = substr($sch->end_time ?? '09:00', 0, 5);
+
+            $isAssignment = str_contains(strtolower(($notes ?: '') . ' ' . ($journal?->activity ?: '') . ' ' . ($mat?->assignment ?: '')), 'tugas') || str_contains(strtolower(($notes ?: '') . ' ' . ($journal?->activity ?: '')), 'mandiri');
+
+            if ($isFuture) {
+                $status = $mat ? 'MATERI_TERSEDIA' : 'AKAN_DATANG';
+                $statusLabel = $mat ? 'Materi Persiapan Tersedia' : 'Jadwal Akan Datang';
+                $statusColor = $mat ? 'emerald' : 'blue';
+                $teacherPresence = 'Terjadwal';
+            } elseif ($isPast) {
+                if ($isDone) {
+                    $status = 'TERLAKSANA';
+                    $statusLabel = $isAssignment ? 'Tugas Mandiri Terverifikasi' : 'KBM Terlaksana (Guru Hadir)';
+                    $statusColor = 'emerald';
+                    $teacherPresence = $isAssignment ? 'Tugas Mandiri' : 'Guru Hadir';
+                } elseif ($isPending) {
+                    $status = 'MENUNGGU_VERIFIKASI';
+                    $statusLabel = $isAssignment ? 'Tugas Mandiri (Menunggu Paraf)' : 'KBM Selesai (Menunggu Paraf)';
+                    $statusColor = 'amber';
+                    $teacherPresence = $isAssignment ? 'Tugas Mandiri' : 'Menunggu Paraf Guru';
+                } else {
+                    $status = 'JAM_KOSONG';
+                    $statusLabel = 'Jam Kosong (Tidak Ada KBM)';
+                    $statusColor = 'rose';
+                    $teacherPresence = 'Jam Kosong / Guru Tidak Masuk';
+                }
+            } else {
+                if ($isDone) {
+                    $status = 'TERLAKSANA';
+                    $statusLabel = $isAssignment ? 'Tugas Mandiri Terverifikasi' : 'KBM Terlaksana (Guru Hadir)';
+                    $statusColor = 'emerald';
+                    $teacherPresence = $isAssignment ? 'Tugas Mandiri' : 'Guru Hadir';
+                } elseif ($nowStr >= $startStr && $nowStr <= $endStr) {
+                    $status = 'SEDANG_BERLANGSUNG';
+                    $statusLabel = 'Sedang Berlangsung';
+                    $statusColor = 'amber';
+                    $teacherPresence = 'Sedang Mengajar di Kelas';
+                } elseif ($isPending) {
+                    $status = 'MENUNGGU_VERIFIKASI';
+                    $statusLabel = $isAssignment ? 'Tugas Mandiri (Menunggu Paraf)' : 'KBM Selesai (Menunggu Paraf)';
+                    $statusColor = 'blue';
+                    $teacherPresence = $isAssignment ? 'Tugas Mandiri' : 'Menunggu Paraf Guru';
+                } elseif ($nowStr > $endStr) {
+                    $status = 'JAM_KOSONG';
+                    $statusLabel = 'Jam Kosong (Belum Diisi)';
+                    $statusColor = 'rose';
+                    $teacherPresence = 'Jam Kosong / Belum Ada Catatan';
+                } else {
+                    $status = 'BELUM_DIMULAI';
+                    $statusLabel = 'Belum Dimulai';
+                    $statusColor = 'gray';
+                    $teacherPresence = 'Menunggu Jam Pelajaran';
+                }
+            }
+
+            return [
+                'jam_ke' => 'Jam Ke-' . ($index + 1),
+                'pengajar_ke' => 'Pengajar ' . ($index + 1),
+                'time' => $sch->start_time . ' - ' . $sch->end_time,
+                'room' => $sch->room ?: 'Ruang Kelas',
+                'subject' => $sch->subject->name ?? 'Mata Pelajaran',
+                'subject_code' => $sch->subject->code ?? '',
+                'teacher_name' => $sch->teacher->name ?? 'Guru',
+                'teacher_presence' => $teacherPresence,
+                'is_assignment' => $isAssignment,
+                'student_status' => $studentStatus,
+                'student_leave_time' => $studentLeaveTime,
+                'student_leave_note' => $studentLeaveNote,
+                'student_attendance' => $studentAttendance,
+                'topic' => $journal?->activity ?? ($mat?->topic ?? ($isFuture ? 'Rencana Jadwal Pembelajaran' : ($isPast ? 'Jam Kosong / Tidak Ada Catatan Materi' : 'Menunggu Sesi KBM'))),
+                'notes' => $notes ?: ($mat?->assignment ?? ''),
+                'absent_students' => $absentStudents,
+                'attachment_url' => $attachmentUrl,
+                'attachment_name' => $attachmentName,
+                'status' => $status,
+                'status_label' => $statusLabel,
+                'status_color' => $statusColor,
+            ];
+        });
+    }
+
+    private function sekretarisDashboard(User $user, $today)
+    {
+        $classId = $user->class_id;
+
+        if (!$classId) {
+            return response()->json([
+                'today' => $today,
+                'class_name' => 'Belum Ada Kelas',
+                'attendance_summary' => [
+                    'hadir' => 0,
+                    'sakit' => 0,
+                    'izin' => 0,
+                    'alfa' => 0,
+                ],
+                'attendance_rate' => 0,
+                'verification_status' => 'BELUM_KONFIRMASI',
+                'today_timeline' => [],
+            ]);
+        }
+
+        $session = AttendanceSession::where('class_id', $classId)
+            ->whereDate('date', $today)
+            ->with(['records.student'])
+            ->first();
+
+        $students = User::where('class_id', $classId)
+            ->whereIn('role', ['SISWA', 'SEKRETARIS'])
+            ->orderBy('name')
+            ->get();
+
+        $sessionDate = $session ? Carbon::parse($session->date)->toDateString() : $today;
+
+        // 1. Cek surat izin untuk seluruh siswa kelas pada tanggal sesi ini
+        $todayLeaves = LeaveRequest::whereIn('student_id', $students->pluck('id'))
+            ->whereDate('start_date', '<=', $sessionDate)
+            ->whereDate('end_date', '>=', $sessionDate)
+            ->get();
+
+        $rejectedLeaves = $todayLeaves->where('status', 'REJECTED')->keyBy('student_id');
+        $approvedLeaves = $todayLeaves->where('status', 'APPROVED')->keyBy('student_id');
+        $pendingLeaves = $todayLeaves->where('status', 'PENDING')->keyBy('student_id');
+
+        // 2. Status Kehadiran Pribadi Sekretaris Sendiri (Dualisme Petugas & Siswa)
+        $selfSessionToday = AttendanceSession::where('class_id', $classId)->whereDate('date', $today)->first();
+        $selfRecord = $selfSessionToday
+            ? AttendanceRecord::where('session_id', $selfSessionToday->id)->where('student_id', $user->id)->first()
+            : null;
+
+        $selfLeave = $todayLeaves->where('student_id', $user->id)->sortByDesc('id')->first();
+
+        $selfStatus = 'BELUM_PRESENSI';
+        $selfNote = 'Belum tercatat presensi hari ini';
+        $selfCheckedIn = false;
+        $isSelfLeaveRejected = false;
+        $isSelfLeaveApproved = false;
+        $hasSelfPendingLeave = false;
+        $selfRejectionReason = null;
+
+        if ($selfLeave && $selfLeave->status === 'APPROVED') {
+            $selfStatus = $selfLeave->type;
+            $selfNote = 'Dispensasi Surat Izin Resmi (' . $selfLeave->type . ') Disetujui Wali Kelas: ' . $selfLeave->reason;
+            $isSelfLeaveApproved = true;
+            $selfCheckedIn = true;
+        } elseif ($selfLeave && $selfLeave->status === 'REJECTED') {
+            $isSelfLeaveRejected = true;
+            $selfRejectionReason = $selfLeave->review_note ?: 'Tidak memenuhi syarat izin.';
+            if ($selfRecord && $selfRecord->status === 'HADIR') {
+                $selfStatus = 'HADIR';
+                $selfNote = $selfRecord->note ?: 'Diverifikasi Hadir Fisik di Kelas';
+                $selfCheckedIn = true;
+            } else {
+                $selfStatus = 'DITOLAK';
+                $selfNote = 'Surat izin Anda telah DITOLAK Wali Kelas ("' . $selfRejectionReason . '"). Silakan lapor ke Wali Kelas/hadir fisik.';
+                $selfCheckedIn = false;
+            }
+        } elseif ($selfLeave && $selfLeave->status === 'PENDING') {
+            $hasSelfPendingLeave = true;
+            $selfStatus = 'PENDING';
+            $selfNote = 'Permohonan surat izin Anda (' . $selfLeave->type . ') sedang menunggu persetujuan Wali Kelas.';
+        } elseif ($selfRecord && $selfSessionToday && $selfRecord->session_id === $selfSessionToday->id) {
+            $selfStatus = $selfRecord->status;
+            $selfNote = $selfRecord->note ?: 'Hadir Terverifikasi';
+            $selfCheckedIn = true;
+        }
+
+        // 3. Rekap Siswa Kelas & Penanda Khusus "Izin Ditolak Walas"
+        $hadir = 0; $sakit = 0; $izin = 0; $alpha = 0;
+        $attendanceList = [];
+
+        $recordMap = $session ? $session->records->keyBy('student_id') : collect();
+
+        foreach ($students as $idx => $std) {
+            $rec = $recordMap->get($std->id);
+            $isRejected = $rejectedLeaves->has($std->id);
+            $isApproved = $approvedLeaves->has($std->id);
+            $rejectionReason = $isRejected ? $rejectedLeaves->get($std->id)->review_note : null;
+
+            if ($isApproved) {
+                $status = $approvedLeaves->get($std->id)->type;
+                $note = 'Izin disetujui Walas: ' . ($approvedLeaves->get($std->id)->reason ?: '-');
+            } elseif ($rec) {
+                $status = $rec->status;
+                $note = $rec->note ?: '-';
+            } else {
+                $status = ($session && $session->status === 'LOCKED') ? 'ALPHA' : 'BELUM_ABSEN';
+                $note = ($session && $session->status === 'LOCKED') ? 'Tidak hadir / Tanpa keterangan' : '-';
+            }
+
+            if ($status === 'HADIR') $hadir++;
+            elseif ($status === 'SAKIT') $sakit++;
+            elseif ($status === 'IZIN') $izin++;
+            elseif (in_array($status, ['ALPHA', 'ALFA'])) $alpha++;
+
+            $isVerified = $rec && in_array($status, ['HADIR', 'SAKIT', 'IZIN', 'ALPHA', 'ALFA']) && $session && ($session->verification_status === 'TERVERIFIKASI');
+
+            $attendanceList[] = [
+                'no' => $idx + 1,
+                'student_id' => $std->id,
+                'name' => $std->name,
+                'nis' => $std->nip_nis ?? '-',
+                'status' => $status,
+                'note' => $note,
+                'is_self' => $std->id === $user->id,
+                'is_rejected_leave' => $isRejected,
+                'rejection_reason' => $rejectionReason,
+                'verified' => $isVerified,
+            ];
+        }
+
+        $total = count($attendanceList) ?: 1;
+        $percentage = round(($hadir / $total) * 100);
+
+        // Catatan belajar pribadi sekretaris sendiri (bukan seluruh siswa)
+        $recentJournals = ClassJournal::with(['schedule.subject', 'confirmedBy'])
+            ->where('created_by_id', $user->id)
+            ->latest('date')
+            ->latest('id')
+            ->take(5)
+            ->get()
+            ->map(function ($j) {
+                return [
+                    'id' => $j->id,
+                    'date' => Carbon::parse($j->date)->translatedFormat('d M Y'),
+                    'subject' => $j->schedule->subject->name ?? 'Kegiatan Belajar',
+                    'activity' => $j->activity,
+                    'status' => $j->verification_status,
+                ];
+            });
+
+        return response()->json([
+            'server_today' => Carbon::today('Asia/Jakarta')->toDateString(),
+            'server_time' => Carbon::now('Asia/Jakarta')->toDateTimeString(),
+            'class_name' => $user->schoolClass->name ?? 'Kelas Industri RPL',
+            'session_date' => Carbon::parse($today)->translatedFormat('l, d F Y'),
+            'is_today_session' => true,
+            'is_session_open' => !is_null($session),
+            'self_attendance' => [
+                'status' => $selfStatus,
+                'note' => $selfNote,
+                'checked_in' => $selfCheckedIn,
+                'is_leave_rejected' => $isSelfLeaveRejected,
+                'is_leave_approved' => $isSelfLeaveApproved,
+                'has_pending_leave' => $hasSelfPendingLeave,
+                'rejection_reason' => $selfRejectionReason,
+                'date_formatted' => Carbon::parse($today)->translatedFormat('l, d F Y'),
+            ],
+            'stats' => [
+                'hadir_count' => $hadir . ' Siswa',
+                'hadir_percent' => $percentage . '% Tingkat Kehadiran',
+                'izin_count' => $izin . ' Siswa',
+                'sakit_count' => $sakit . ' Siswa',
+                'alpha_count' => $alpha . ' Siswa',
+            ],
+            'attendance_list' => $attendanceList,
+            'recent_journals' => $recentJournals,
+            'session_status' => $session ? $session->status : 'BELUM_DIBUKA',
+            'verification_status' => $session ? ($session->verification_status ?? 'BELUM_KONFIRMASI') : 'BELUM_DIBUKA',
+            'today_timeline' => $this->getTodayTimeline($classId, $today),
+        ]);
+    }
+
+    private function pengajarDashboard(User $user, $today)
+    {
+        $daysMap = [1 => 'Senin', 2 => 'Selasa', 3 => 'Rabu', 4 => 'Kamis', 5 => 'Jumat', 6 => 'Sabtu', 7 => 'Minggu'];
+        $currentDayName = $daysMap[Carbon::parse($today)->dayOfWeekIso] ?? 'Senin';
+
+        $taughtClasses = $user->taughtClasses()->count() ?: (Schedule::where('teacher_id', $user->id)->distinct('class_id')->count('class_id') ?: 0);
+        $schedules = Schedule::with(['schoolClass', 'subject'])
+            ->where('teacher_id', $user->id)
+            ->where('day', $currentDayName)
+            ->orderBy('start_time')
+            ->get();
+
+        $filledJournals = ClassJournal::where('confirmed_by_id', $user->id)
+            ->whereDate('date', $today)
+            ->count();
+        $totalSchedules = $schedules->count();
+        $unfilled = max(0, $totalSchedules - $filledJournals);
+
+        $todayJournals = ClassJournal::whereIn('schedule_id', $schedules->pluck('id'))
+            ->whereDate('date', $today)
+            ->get()
+            ->keyBy('schedule_id');
+
+        $scheduleList = $schedules->map(function ($sch) use ($todayJournals) {
+            $journal = $todayJournals->get($sch->id);
+
+            return [
+                'id' => $sch->id,
+                'time' => $sch->start_time . ' - ' . $sch->end_time,
+                'subject' => $sch->subject->name ?? 'Mata Pelajaran',
+                'class' => $sch->schoolClass->name ?? 'Kelas',
+                'status' => $journal ? 'Terisi' : 'Belum Diisi',
+                'verification' => $journal->verification_status ?? 'BELUM_DIISI',
+            ];
+        });
+
+        $taughtClassIds = $user->taughtClasses()->pluck('classes.id');
+        if ($taughtClassIds->isEmpty()) {
+            $taughtClassIds = Schedule::where('teacher_id', $user->id)->pluck('class_id')->unique();
+        }
+        $classesToSummarize = SchoolClass::whereIn('id', $taughtClassIds)->get();
+
+        $attendanceSummary = $classesToSummarize->map(function ($cls) use ($today) {
+            $totalStudents = User::where('class_id', $cls->id)->whereIn('role', ['SISWA', 'SEKRETARIS'])->count();
+            $session = AttendanceSession::where('class_id', $cls->id)->whereDate('date', $today)->first();
+            $presentCount = $session ? $session->records()->where('status', 'HADIR')->count() : 0;
+            $pct = $totalStudents > 0 ? round(($presentCount / $totalStudents) * 100) : 0;
+            return [
+                'class' => $cls->name,
+                'present_ratio' => "{$presentCount}/{$totalStudents} siswa",
+                'percent' => $pct,
+            ];
+        });
+
+        $teacherScheduleCount = Schedule::where('teacher_id', $user->id)->where('day', $currentDayName)->count();
+        $filledTodayCount = ClassJournal::whereIn('schedule_id', Schedule::where('teacher_id', $user->id)->where('day', $currentDayName)->pluck('id'))
+            ->whereDate('date', $today)
+            ->count();
+        $unfilledCount = max(0, $teacherScheduleCount - $filledTodayCount);
+
+        $unfilledSchedules = Schedule::where('teacher_id', $user->id)
+            ->where('day', $currentDayName)
+            ->whereNotIn('id', ClassJournal::whereDate('date', $today)->pluck('schedule_id'))
+            ->with('schoolClass')
+            ->get();
+        $unfilledClassesText = $unfilledSchedules->map(fn($s) => $s->schoolClass->name ?? 'Kelas')->unique()->implode(' dan ');
+
+        $reminders = [];
+        if ($unfilledCount > 0) {
+            $reminders[] = $unfilledCount . ' jurnal belum diisi (' . ($unfilledClassesText ?: 'Pertemuan Terjadwal') . ')';
+        } else {
+            $reminders[] = 'Seluruh jurnal tatap muka hari ini telah tuntas diisi.';
+        }
+
+        $pendingLeavesCount = LeaveRequest::where('status', 'PENDING')
+            ->whereHas('student', function ($q) use ($taughtClassIds) {
+                $q->whereIn('class_id', $taughtClassIds);
+            })->count();
+
+        if ($pendingLeavesCount > 0) {
+            $reminders[] = $pendingLeavesCount . ' surat izin menunggu verifikasi Wali Kelas';
+        }
+
+        $actualTaughtClasses = $user->taughtClasses()->count() ?: (Schedule::where('teacher_id', $user->id)->distinct('class_id')->count('class_id') ?: 1);
+        $actualJamMengajar = $schedules->count() ?: 0;
+
+        $recentJournals = ClassJournal::with(['schedule.schoolClass', 'schedule.subject'])
+            ->whereIn('schedule_id', $schedules->pluck('id'))
+            ->orderByDesc('updated_at')
+            ->limit(5)
+            ->get()
+            ->map(fn($j) => [
+                'title' => ($j->schedule->subject->name ?? 'KBM') . ' — ' . ($j->schedule->schoolClass->name ?? 'Kelas'),
+                'time' => Carbon::parse($j->updated_at)->setTimezone('Asia/Jakarta')->format('H:i') . ' WIB',
+            ]);
+
+        return response()->json([
+            'server_today' => Carbon::today('Asia/Jakarta')->toDateString(),
+            'server_time' => Carbon::now('Asia/Jakarta')->toDateTimeString(),
+            'stats' => [
+                'kelas_diampu' => $actualTaughtClasses . ' Kelas',
+                'jam_mengajar' => $actualJamMengajar . ' Jam',
+                'jurnal_terisi' => $filledJournals . '/' . $totalSchedules . ' Pertemuan',
+                'jurnal_belum_diisi' => $unfilled . ' Pertemuan',
+            ],
+            'schedules' => $scheduleList,
+            'attendance_summary' => $attendanceSummary,
+            'reminders' => $reminders,
+            'recent_activity' => $recentJournals,
+        ]);
+    }
+
+    private function pembimbingDashboard(User $user, $today)
+    {
+        // 1. Dapatkan kelas binaan wali kelas (berdasarkan advisor_id atau class_id)
+        $guidedClass = SchoolClass::with(['secretary', 'advisor'])->where('advisor_id', $user->id)->first()
+            ?? SchoolClass::with(['secretary', 'advisor'])->find($user->class_id);
+
+        $daysMap = [1 => 'Senin', 2 => 'Selasa', 3 => 'Rabu', 4 => 'Kamis', 5 => 'Jumat', 6 => 'Sabtu', 7 => 'Minggu'];
+        $currentDayName = $daysMap[Carbon::parse($today)->dayOfWeekIso] ?? 'Senin';
+
+        if (!$guidedClass) {
+            return response()->json([
+                'stats' => [
+                    'total_kelas' => 'Belum Tertaut',
+                    'total_siswa' => '0 Siswa',
+                    'jurnal_terisi' => '0 / 0 Sesi',
+                    'surat_izin_pending' => '0 Permohonan',
+                ],
+                'monitored_classes' => [],
+                'pending_leaves' => [],
+            ]);
+        }
+
+        // 2. Data siswa kelas binaan
+        $totalStudents = User::where('class_id', $guidedClass->id)->whereIn('role', ['SISWA', 'SEKRETARIS'])->count();
+
+        // 3. Status Sesi Presensi Hari Ini
+        $session = AttendanceSession::where('class_id', $guidedClass->id)
+            ->whereDate('date', $today)
+            ->first();
+
+        $presentCount = $session ? $session->records()->where('status', 'HADIR')->count() : 0;
+        $attendanceText = $session
+            ? "{$presentCount} / {$totalStudents} Hadir (" . ($totalStudents > 0 ? round(($presentCount / $totalStudents) * 100) : 0) . "%)"
+            : 'Belum Ada Sesi Presensi';
+
+        // 4. Jurnal KBM Kelas Hari Ini
+        $todayJournals = ClassJournal::where('class_id', $guidedClass->id)
+            ->whereDate('date', $today)
+            ->get();
+
+        $todaySchedulesCount = Schedule::where('class_id', $guidedClass->id)->where('day', $currentDayName)->count();
+
+        $latestJournal = $todayJournals->sortByDesc('id')->first();
+        $journalStatus = $latestJournal
+            ? ($latestJournal->verification_status === 'TERVERIFIKASI' ? 'Terverifikasi' : 'Menunggu Paraf Guru')
+            : 'Belum Diisi';
+
+        $sessionStatusLabel = 'Belum Presensi';
+        if ($session) {
+            if ($session->verification_status === 'TERVERIFIKASI') {
+                $sessionStatusLabel = 'Disahkan Walas (ACC)';
+            } elseif ($session->status === 'LOCKED') {
+                $sessionStatusLabel = 'Menunggu ACC Walas';
+            } else {
+                $sessionStatusLabel = 'Draf Sekretaris';
+            }
+        }
+
+        $monitoredClasses = [
+            [
+                'id' => $guidedClass->id,
+                'class' => $guidedClass->name,
+                'secretary' => $guidedClass->secretary->name ?? 'Belum Diangkat',
+                'journal_status' => $journalStatus,
+                'attendance_percent' => $attendanceText,
+                'session_status' => $session ? $session->status : 'BELUM_ADA',
+                'verification_status' => $session ? $session->verification_status : 'BELUM_KONFIRMASI',
+                'attendance_status_label' => $sessionStatusLabel,
+                'total_students' => $totalStudents,
+                'present_count' => $presentCount,
+            ]
+        ];
+
+        // 5. Surat Izin Pending KHUSUS Kelas Binaan
+        $pendingLeaves = LeaveRequest::with(['student.schoolClass'])
+            ->whereHas('student', fn($q) => $q->where('class_id', $guidedClass->id))
+            ->where('status', 'PENDING')
+            ->latest()
+            ->get();
+
+        $leaveList = $pendingLeaves->map(function ($lv) {
+            return [
+                'id' => $lv->id,
+                'student_name' => $lv->student->name ?? 'Siswa',
+                'class' => $lv->student->schoolClass->name ?? '-',
+                'type' => $lv->type,
+                'reason' => $lv->reason,
+                'attachment' => $lv->attachment_path ? basename($lv->attachment_path) : null,
+                'attachment_url' => $lv->attachment_path ? url('api/leave-requests/file/' . basename($lv->attachment_path)) : null,
+            ];
+        });
+
+        // 6. Monitoring Kehadiran Kelas Per Jam Pelajaran (Realtime)
+        $schedulesToday = Schedule::with(['subject', 'teacher'])
+            ->where('class_id', $guidedClass->id)
+            ->where(function($q) use ($currentDayName) {
+                $q->where('day', $currentDayName)->orWhereNull('day');
+            })
+            ->orderBy('start_time')
+            ->get();
+
+        $now = Carbon::now('Asia/Jakarta');
+        $nowStr = $now->format('H:i');
+
+        $periodsAttendance = $schedulesToday->map(function ($sch) use ($todayJournals, $nowStr, $totalStudents) {
+            $journal = $todayJournals->firstWhere('schedule_id', $sch->id);
+            $startStr = substr($sch->start_time ?? '07:30', 0, 5);
+            $endStr = substr($sch->end_time ?? '09:00', 0, 5);
+            $isCurrent = ($nowStr >= $startStr && $nowStr <= $endStr);
+
+            $absentList = [];
+            $studentAttendanceList = [];
+            if ($journal && $journal->notes && str_starts_with(trim($journal->notes), '{')) {
+                $dec = json_decode($journal->notes, true);
+                if (is_array($dec)) {
+                    $absentList = $dec['absent_students'] ?? [];
+                    $studentAttendanceList = $dec['student_attendance'] ?? [];
+                }
+            }
+
+            $statusKbm = 'Belum Dimulai';
+            if ($isCurrent) {
+                $statusKbm = 'Sedang Berlangsung';
+            } elseif ($nowStr > $endStr) {
+                $statusKbm = 'Selesai';
+            }
+
+            return [
+                'id' => $sch->id,
+                'time' => "{$startStr} - {$endStr}",
+                'subject' => $sch->subject->name ?? 'Mata Pelajaran',
+                'teacher' => $sch->teacher->name ?? 'Guru',
+                'status_kbm' => $statusKbm,
+                'is_current' => $isCurrent,
+                'journal_filled' => !!$journal,
+                'journal_verified' => ($journal && $journal->verification_status === 'TERVERIFIKASI'),
+                'absent_students' => $absentList,
+                'student_attendance' => $studentAttendanceList,
+                'absent_count' => count($absentList),
+                'present_count' => max(0, $totalStudents - count($absentList)),
+            ];
+        });
+
+        // 7. Deteksi Alert KBM Siswa Binaan Hari Ini (Hadir Pagi tapi Alfa / Izin Keluar di KBM)
+        $kbmAlerts = [];
+        $presentStudentIdsToday = $session ? $session->records()->where('status', 'HADIR')->pluck('student_id')->toArray() : [];
+
+        foreach ($todayJournals as $tj) {
+            if ($tj->notes && str_starts_with(trim($tj->notes), '{')) {
+                $dec = json_decode($tj->notes, true);
+                if (is_array($dec) && !empty($dec['student_attendance'])) {
+                    foreach ($dec['student_attendance'] as $sa) {
+                        $sId = $sa['id'] ?? ($sa['student_id'] ?? null);
+                        $sStatus = strtoupper($sa['status'] ?? '');
+                        if (!$sId) continue;
+
+                        $stUser = \App\Models\User::find($sId);
+                        $stName = $stUser?->name ?? 'Siswa';
+                        $sch = $tj->schedule;
+                        $subjName = $sch?->subject?->name ?? 'Mata Pelajaran';
+                        $timeStr = ($sch?->start_time ? substr($sch->start_time, 0, 5) : '') . ' - ' . ($sch?->end_time ? substr($sch->end_time, 0, 5) : '');
+
+                        if (in_array($sStatus, ['ALPHA', 'ALFA'])) {
+                            $isUnattended = in_array($sId, $presentStudentIdsToday);
+                            $kbmAlerts[] = [
+                                'type' => 'ALFA',
+                                'is_cabut' => $isUnattended,
+                                'student_id' => $sId,
+                                'student_name' => $stName,
+                                'subject' => $subjName,
+                                'time' => $timeStr,
+                                'teacher' => $sch?->teacher?->name ?? 'Guru Pengajar',
+                                'message' => $isUnattended
+                                    ? "Siswa {$stName} tercatat HADIR di presensi pagi, tetapi ALFA (Tidak Ada di Kelas) pada jam {$subjName} ({$timeStr})!"
+                                    : "Siswa {$stName} tercatat ALFA pada jam {$subjName} ({$timeStr}) oleh Guru Pengajar.",
+                            ];
+                        } elseif ($sStatus === 'IZIN') {
+                            $kbmAlerts[] = [
+                                'type' => 'IZIN_KELUAR',
+                                'is_cabut' => false,
+                                'student_id' => $sId,
+                                'student_name' => $stName,
+                                'subject' => $subjName,
+                                'time' => $timeStr,
+                                'teacher' => $sch?->teacher?->name ?? 'Guru Pengajar',
+                                'leave_time' => $sa['leave_time'] ?? 'Saat KBM',
+                                'reason' => $sa['note'] ?? ($sa['reason'] ?? 'Izin keluar kelas saat KBM'),
+                                'message' => "Siswa {$stName} izin keluar kelas pada jam {$subjName} pukul " . ($sa['leave_time'] ?? 'saat KBM') . " (Alasan: " . ($sa['note'] ?? ($sa['reason'] ?? 'Izin')) . ").",
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        return response()->json([
+            'server_today' => Carbon::today('Asia/Jakarta')->toDateString(),
+            'server_time' => Carbon::now('Asia/Jakarta')->toDateTimeString(),
+            'stats' => [
+                'total_kelas' => $guidedClass->name,
+                'total_siswa' => $totalStudents . ' Siswa',
+                'jurnal_terisi' => $todayJournals->count() . ' / ' . $todaySchedulesCount . ' Sesi',
+                'surat_izin_pending' => $pendingLeaves->count() . ' Permohonan',
+                'presensi_status' => $sessionStatusLabel,
+            ],
+            'monitored_classes' => $monitoredClasses,
+            'pending_leaves' => $leaveList,
+            'periods_attendance' => $periodsAttendance,
+            'kbm_alerts' => $kbmAlerts,
+        ]);
+    }
+
+    private function superadminDashboard(User $user, $today)
+    {
+        $allClasses = SchoolClass::with(['advisor', 'secretary'])->orderBy('name')->get();
+        $totalStudents = User::whereIn('role', ['SISWA', 'SEKRETARIS'])->count();
+        $totalTeachers = User::whereIn('role', ['GURU_PENGAJAR', 'GURU_PEMBIMBING'])->count();
+        $totalClasses = $allClasses->count();
+
+        $classesRplCount = SchoolClass::where('major', 'RPL')->count();
+        $classesDkvCount = SchoolClass::where('major', 'DKV')->count();
+        $classesAniCount = SchoolClass::where('major', 'Animasi')->count();
+
+        $sessionsToday = AttendanceSession::whereDate('date', $today)->with('records')->get();
+        $totalPresentToday = 0;
+        $totalRecordsToday = 0;
+        foreach ($sessionsToday as $ses) {
+            $present = $ses->records->where('status', 'HADIR')->count();
+            $recCount = $ses->records->count();
+            $totalPresentToday += $present;
+            $totalRecordsToday += $recCount;
+        }
+        $avgAttendance = $totalRecordsToday > 0 ? round(($totalPresentToday / $totalRecordsToday) * 100) : 0;
+
+        $journalsTodayCount = ClassJournal::whereDate('date', $today)->count();
+        $pendingLeavesCount = LeaveRequest::where('status', 'PENDING')->count();
+
+        $classesMonitoring = $allClasses->map(function ($cls) use ($today) {
+            $session = AttendanceSession::where('class_id', $cls->id)
+                ->whereDate('date', $today)
+                ->first();
+
+            $journal = ClassJournal::where('class_id', $cls->id)
+                ->whereDate('date', $today)
+                ->latest()
+                ->first();
+
+            $stdCount = User::where('class_id', $cls->id)->whereIn('role', ['SISWA', 'SEKRETARIS'])->count();
+            $presentCount = $session ? $session->records()->where('status', 'HADIR')->count() : 0;
+            $pct = $stdCount > 0 ? round(($presentCount / $stdCount) * 100) : 0;
+
+            return [
+                'id' => $cls->id,
+                'class_name' => $cls->name,
+                'major' => $cls->major ?? 'Umum',
+                'advisor_name' => $cls->advisor->name ?? 'Belum Ditentukan',
+                'secretary_name' => $cls->secretary->name ?? 'Belum Ditentukan',
+                'student_count' => $stdCount,
+                'session_status' => $session ? $session->status : 'BELUM_DIBUKA',
+                'verification_status' => $session ? ($session->verification_status ?? 'BELUM_KONFIRMASI') : 'BELUM_DIBUKA',
+                'session_date' => $today,
+                'attendance_percent' => $pct,
+                'present_ratio' => $session ? "{$presentCount}/{$stdCount} Siswa" : "Belum Ada Sesi",
+                'journal_status' => $journal ? ($journal->verification_status === 'TERVERIFIKASI' ? 'Terverifikasi' : 'Pending Guru') : 'Belum Diisi',
+            ];
+        });
+
+        $recentAuditLogs = AuditLog::with('user')
+            ->latest()
+            ->take(8)
+            ->get()
+            ->map(function ($log) {
+                return [
+                    'id' => $log->id,
+                    'time' => Carbon::parse($log->created_at)->translatedFormat('H:i') . ' WIB',
+                    'user' => $log->user ? $log->user->name : 'Sistem',
+                    'role' => $log->user ? $log->user->role : 'SYSTEM',
+                    'action' => $log->action,
+                    'ip_address' => $log->ip_address ?? '127.0.0.1',
+                ];
+            });
+
+        return response()->json([
+            'server_today' => Carbon::today('Asia/Jakarta')->toDateString(),
+            'server_time' => Carbon::now('Asia/Jakarta')->toDateTimeString(),
+            'stats' => [
+                'total_guru' => $totalTeachers . ' Guru',
+                'total_siswa' => $totalStudents . ' Siswa',
+                'total_kelas' => $totalClasses . ' Kelas',
+                'kehadiran_rata_rata' => $avgAttendance . '%',
+                'jurnal_terisi_today' => $journalsTodayCount . '/' . $totalClasses . ' Sesi',
+                'surat_izin_pending' => $pendingLeavesCount . ' Menunggu',
+                'majors' => [
+                    'rpl' => $classesRplCount,
+                    'dkv' => $classesDkvCount,
+                    'animasi' => $classesAniCount,
+                ],
+            ],
+            'classes_monitoring' => $classesMonitoring,
+            'recent_audit_logs' => $recentAuditLogs,
+        ]);
+    }
+}
